@@ -21,7 +21,7 @@ $ npm run mqttServer
 API文档：http://www.eclipse.org/paho/files/jsdoc/Paho.MQTT.Message.html
 
 在paho-mqtt-client基础上做了一点封装
-实例化
+### 实例化
 ```
 new MqttClient({
     id: "xxx", // clientName
@@ -38,12 +38,12 @@ new MqttClient({
     }
 })
 ```
-属性
+### 属性
 ```
 @property {array} topicList 客户端订阅的主题列表
 @property {object} client 已经实例化的mqtt客户端
 ```
-方法
+### 方法
 ```
 @method {function} send 客户端发送信息
 @method {function} subscribe 客户端订阅主题
