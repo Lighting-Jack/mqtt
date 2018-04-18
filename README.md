@@ -14,7 +14,7 @@ $ npm run server
 $ npm run mqttServer 
 ```
 打开浏览器，输入localhost:8080，可以看到服务正常启动。
-
+![](./mdImg/server.jpg)
 
 ## MqttClient
 使用paho mqtt client，作为客户端mqtt-sdk
