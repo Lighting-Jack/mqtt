@@ -86,9 +86,9 @@
             config.port,
             config.id
         );
-        client.onConnectionLost = config.onConnectionLost
-        client.onMessageDelivered = config.onMessageDelivered
-        client.onMessageArrived = config.onMessageArrived
+        client.onConnectionLost = config.onConnectionLost.bind(client)
+        client.onMessageDelivered = config.onMessageDelivered.bind(client)
+        client.onMessageArrived = config.onMessageArrived.bind(client)
         // 建立连接
         client.connect({
             onSuccess: config.onConnect.bind(client) // 连接成功回调
@@ -101,8 +101,14 @@
         client.subscribe = utils.aopProxyMixin(client.subscribe, (topic) => {
             utils.log(CLIENT_ID, "subscribe start", topic)
         }, (topic) => {
-            topicList.push(topic)
-            utils.log(CLIENT_ID, "subscribe end", topic)
+            if (topicList.indexOf(topic) === -1) {
+                topicList.push(topic)
+                utils.log(CLIENT_ID, "subscribe end", topic)
+            } else {
+                utils.log("Warning", "请不要重复订阅")
+            }
+
+
         })
 
         this.topicList = topicList;
@@ -130,18 +136,4 @@
 
     window.utils = utils;
     window.MqttClient = Client
-    new MqttClient({
-        id: "louiswu", // clientName
-        host: location.hostname, // wss连接host
-        port: +1884, // wss连接端口
-        onConnect() { // 连接成功回调
-            utils.log("MqttClient", "connected", this)
-        },
-        // onConnectionLost() { // 连接断开回调
-        //     utils.log("MqttClient", "connectLost")
-        // },
-        // onMessageArrived() { // 消息送达回调
-        //     utils.log("MqttClient", "messageArrived")
-        // },
-    })
 })(window, document)

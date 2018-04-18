@@ -9,9 +9,48 @@
 </head>
 
 <body>
+
     <h1>Mqtt-client Test</h1>
+    <div class="button-box button-subscribe">
+        <button id="subscribe">订阅</button>
+        <input id="sub-text" type="text" placeholder="请输入订阅的主题">
+    </div>
+    <div class="button-box button-publish">
+        <button id="publish">发布</button>
+        <input id="pub-text" type="text" placeholder="请输入想要发布的信息">
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
     <script src="js/client.js"></script>
+    <script>
+        // 实例化
+        const app = new MqttClient({
+            id: "Jack", // clientName
+            host: location.hostname, // wss连接host
+            port: +1884, // wss连接端口
+            onConnect() { // 连接成功回调
+                utils.log("MqttClient", "connected", this)
+            },
+            onConnectionLost() { // 连接断开回调
+                utils.log("MqttClient", "connectLost")
+            },
+            onMessageArrived(message) { // 消息送达回调
+                utils.log("MqttClient", "messageArrived", message.payloadString)
+            },
+        })
+        // 事件监听
+        document.getElementById("subscribe").addEventListener("click", function (e) {
+            const topic = document.getElementById("sub-text").value;
+            if (!topic) return;
+            app.subscribe(topic)
+        }, false);
+
+        document.getElementById("publish").addEventListener("click", function (e) {
+            const topic = document.getElementById("sub-text").value;
+            const msg = document.getElementById("pub-text").value;
+            if (!topic || !msg) return;
+            app.send(topic, msg)
+        }, false);
+    </script>
 </body>
 
 </html>
