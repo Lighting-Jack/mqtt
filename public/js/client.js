@@ -129,7 +129,8 @@
     }
 
     window.utils = utils;
-    window.mqttClient = new Client({
+    window.MqttClient = Client
+    new MqttClient({
         id: "louiswu", // clientName
         host: location.hostname, // wss连接host
         port: +1884, // wss连接端口

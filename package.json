@@ -1,5 +1,5 @@
 {
-	"name": "paho-client",
+	"name": "mqttDemo",
 	"description": "Pre reqs for the Paho JS client",
 	"dependencies": {
 		"websocket": "1.x.x",
@@ -17,5 +17,9 @@
 		"mongodb": "^3.0.7",
 		"mosca": "^2.8.1",
 		"msgpack-lite": "^0.1.26"
+	},
+	"scripts": {
+		"server": "node server/server.js",
+		"mqttServer": "node mqttServer/server.js"
 	}
 }
