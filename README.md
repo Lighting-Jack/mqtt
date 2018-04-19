@@ -1,5 +1,10 @@
 # Mqtt Demo(待补齐...)
 ## 快速搭建
+安装node、npm
+```
+国内：http://nodejs.cn/download/
+国外：https://nodejs.org/en/download/
+```
 项目初始化
 ```
 $ cd mqtt
